@@ -1,0 +1,36 @@
+PROJECT 1 ANSWER - PARAMETERIZED BUILD PIPELINE
+================================================
+
+Concept demonstrated
+--------------------
+The pipeline accepts an environment choice before a build starts. The same
+Jenkinsfile can therefore run for `dev`, `staging`, or `prod` without editing
+the source code.
+
+Implementation
+--------------
+The `parameters` block defines a choice parameter called `ENVIRONMENT`. The
+`Show Parameter` stage reads the selected value through
+`params.ENVIRONMENT`. The `Build for Environment` stage then prints a build
+message using that same value. The `Checkout` stage uses `checkout scm`, which
+checks out the GitHub repository configured in the Jenkins Pipeline job.
+
+How to demonstrate it
+---------------------
+1. Create a Jenkins Pipeline job using Pipeline script from SCM.
+2. Select the GitHub repository and `main` branch.
+3. Set Script Path to
+   `project-1-parameterized-build/Jenkinsfile`.
+4. Click Build Now once. This first run registers the parameter.
+5. Click Build with Parameters, select `staging`, and run the build.
+6. Capture Console Output containing:
+   `Selected environment: staging`
+7. Run the same job again with `prod` selected.
+8. Capture Console Output containing:
+   `Selected environment: prod`
+
+Expected result
+---------------
+Both builds should pass. The Jenkinsfile remains unchanged, while the output
+changes according to the value selected at build time. This proves that the
+pipeline parameter controls the behavior.

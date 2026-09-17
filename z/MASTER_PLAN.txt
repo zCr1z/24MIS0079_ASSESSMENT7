@@ -1,0 +1,114 @@
+ISWE406P ASSESSMENT VII - MASTER PLAN
+=====================================
+
+Objective
+---------
+Complete and demonstrate the easiest three Jenkins CI/CD projects from the
+attached tutorial for the Student Management and Academic Performance System.
+The selected projects are:
+
+1. Parameterized Build Pipeline
+2. Archive Build Artifacts Pipeline
+3. Parallel Stages Pipeline
+
+These three are the most manageable because they use small Python scripts and
+basic Jenkins Pipeline features. They do not require a web framework, a
+database, deployment infrastructure, or complicated test fixtures.
+
+Common setup
+------------
+1. Install and start Jenkins on the Windows machine used as the Jenkins agent.
+2. Confirm the Git plugin is installed.
+3. Confirm Python is installed and available in the Jenkins agent PATH by
+   running `python --version` in Command Prompt.
+4. Create one GitHub repository for this assessment. Keep each project in its
+   own clearly named folder.
+5. Push the repository contents to the `main` branch.
+6. In Jenkins, create a Pipeline job and select Pipeline script from SCM.
+7. Select Git, enter the GitHub repository URL, choose the `main` branch, and
+   set the Script Path to the selected project's Jenkinsfile.
+8. Run each job and save screenshots of the pipeline view and Console Output.
+
+Project 1 - Parameterized Build Pipeline
+-----------------------------------------
+Purpose: prove that the same pipeline can behave differently based on an
+environment chosen before the build starts.
+
+Files:
+- `project-1-parameterized-build/Jenkinsfile`
+
+Steps:
+1. Configure a Jenkins Pipeline job with the Project 1 Jenkinsfile.
+2. Run Build Now once. Jenkins must read the Jenkinsfile before it can expose
+   the parameter on the job.
+3. Run Build with Parameters and choose `staging`.
+4. In Console Output, capture the selected environment and build messages.
+5. Run the same job again with `prod`.
+6. Capture the second Console Output and show that only the selected parameter
+   changed the behavior.
+
+Evidence to submit:
+- Jenkinsfile source.
+- Screenshot showing the Build with Parameters form.
+- Console Output showing `staging`.
+- Console Output showing `prod`.
+- Short explanation of the `parameters` block and `params.ENVIRONMENT`.
+
+Project 2 - Archive Build Artifacts Pipeline
+---------------------------------------------
+Purpose: generate a report and preserve it as a downloadable Jenkins artifact.
+
+Files to create:
+- `project-2-archive-artifacts/app.py`
+- `project-2-archive-artifacts/Jenkinsfile`
+
+Steps:
+1. Configure a Jenkins Pipeline job with the Project 2 Jenkinsfile.
+2. Run the pipeline and confirm that `app.py` creates `report.txt`.
+3. Open the completed build page and download `report.txt` from Build Artifacts.
+4. Change one report value, commit, and run a second build.
+5. Open the old build and prove that its original report is still available.
+
+Evidence to submit:
+- `app.py` and Jenkinsfile source.
+- Console Output showing report generation.
+- Screenshot of the archived artifact.
+- Screenshots of the old and new reports, showing build history preservation.
+- Short explanation of `archiveArtifacts` and fingerprinting.
+
+Project 3 - Parallel Stages Pipeline
+-------------------------------------
+Purpose: run independent frontend and backend checks concurrently.
+
+Files to create:
+- `project-3-parallel-stages/frontend_check.py`
+- `project-3-parallel-stages/backend_check.py`
+- `project-3-parallel-stages/Jenkinsfile`
+
+Steps:
+1. Configure a Jenkins Pipeline job with the Project 3 Jenkinsfile.
+2. Run the pipeline and open Stage View or Blue Ocean if available.
+3. Show that Frontend Check and Backend Check are parallel branches.
+4. Open Console Output and capture both checks passing.
+5. Explain that two three-second checks finish in about three seconds when
+   independent work runs concurrently, rather than about six seconds in series.
+
+Evidence to submit:
+- Both Python check scripts and Jenkinsfile source.
+- Stage View or Blue Ocean screenshot showing parallel branches.
+- Console Output showing both checks passed.
+- Short explanation of the `parallel` block.
+
+Final submission checklist
+--------------------------
+- Source code and Jenkinsfiles are committed to GitHub.
+- All three pipelines have completed successfully at least once.
+- Screenshots clearly show the required Jenkins behavior.
+- The explanation identifies the Jenkins concept demonstrated by each project.
+- The repository URL and build results are included in the final submission.
+
+Recommended order
+-----------------
+Finish and capture Project 1 first. Then implement Project 2 and Project 3,
+testing each immediately after its files are added. Do not claim a Jenkins
+result until it has been run and captured from the Jenkins UI.
