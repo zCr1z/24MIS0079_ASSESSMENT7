@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Generate Report') {
+            steps {
+                dir('project-2-archive-artifacts') {
+                    bat 'python app.py'
+                }
+            }
+        }
+
+        stage('Archive Report') {
+            steps {
+                dir('project-2-archive-artifacts') {
+                    archiveArtifacts artifacts: 'report.txt', fingerprint: true
+                }
+            }
+        }
+    }
+}
