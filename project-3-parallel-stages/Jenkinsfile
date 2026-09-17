@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Parallel Checks') {
+            parallel {
+                stage('Frontend Check') {
+                    steps {
+                        dir('project-3-parallel-stages') {
+                            bat 'python frontend_check.py'
+                        }
+                    }
+                }
+
+                stage('Backend Check') {
+                    steps {
+                        dir('project-3-parallel-stages') {
+                            bat 'python backend_check.py'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Summary') {
+            steps {
+                echo 'Both frontend and backend checks are complete.'
+            }
+        }
+    }
+}
